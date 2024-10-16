@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e3f2fd;
+            padding: 50px;
+        }
+
+        h2 {
+            color: #1976d2;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            width: 200px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1565c0;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #d32f2f;
+        }
+    </style>
+    <script>
+        function sendRequest(operation) {
+            const num1 = document.getElementById("number1").value;
+            const num2 = document.getElementById("number2").value;
+
+            if (num1 === '' || num2 === '') {
+                alert("Please enter both numbers");
+                return;
+            }
+
+            const data = {
+                number1: parseFloat(num1),
+                number2: parseFloat(num2)
+            };
+
+            let endpoint = '';
+
+            // Determine the endpoint based on the operation
+            switch (operation) {
+                case 'sum':
+                    endpoint = '/api/sum';
+                    break;
+                case 'sub':
+                    endpoint = '/api/sub';
+                    break;
+                case 'mul':
+                    endpoint = '/api/mul';
+                    break;
+                case 'div':
+                    endpoint = '/api/div';
+                    break;
+                default:
+                    alert('Invalid operation');
+                    return;
+            }
+
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    document.getElementById("result").innerText = `Result: ${result.result}`;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+
+<body>
+
+    <h2>Simple Calculator</h2>
+
+    <label for="number1">Number 1:</label><br>
+    <input type="number" id="number1" placeholder="Enter first number"><br><br>
+
+    <label for="number2">Number 2:</label><br>
+    <input type="number" id="number2" placeholder="Enter second number"><br><br>
+
+    <button onclick="sendRequest('sum')">Add</button>
+    <button onclick="sendRequest('sub')">Subtract</button>
+    <button onclick="sendRequest('mul')">Multiply</button>
+    <button onclick="sendRequest('div')">Divide</button>
+
+    <div class="result" id="result"></div>
+
+</body>
+
+</html>
