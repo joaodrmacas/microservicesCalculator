@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5000
 
 # Run the Node.js server
-CMD ["node", "server.js"]
+CMD ["node", "mul.js"]

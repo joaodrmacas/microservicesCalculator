@@ -8,10 +8,12 @@ WORKDIR /app
 COPY . .
 
 # Build the Go binary
-RUN go build -o sub-service .
+RUN go mod init sub
+
+RUN go build -o sub .
 
 # Expose port 5000 for the subtraction service
 EXPOSE 5000
 
 # Run the Go binary
-CMD ["./sub-service"]
+CMD ["./sub"]

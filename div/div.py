@@ -19,6 +19,14 @@ def divide_numbers():
 
     # Return the result as JSON
     return jsonify({'result': result})
+@app.route('/api/div', methods=['GET'])
+def divide_numberss():
+    app.logger.info("olaaaa")
+    return "Check the logs for the message!"
+
+@app.route('/', methods=['GET'])
+def printa():
+    print("olaaaa", flush=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000, host='0.0.0.0')

@@ -17,4 +17,4 @@ EXPOSE 5000
 ENV PYTHONUNBUFFERED=1
 
 # Run the Flask app
-CMD ["python", "div_app.py"]
+CMD ["python", "div.py"]
