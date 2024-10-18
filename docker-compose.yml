@@ -28,3 +28,15 @@ services:
     ports:
       - "5004:5000"
     restart: unless-stopped
+
+  app-service:
+    build: ./app
+    container_name: app_container
+    ports:
+      - "5005:5000"
+    depends_on:
+      - sum-service
+      - sub-service
+      - mul-service
+      - div-service
+    restart: unless-stopped
