@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
+import requests
 
 app = Flask(__name__)
+
+# Define the db-service URL as a global variable
+DB_SERVICE_URL = "http://db-service:5000/save"
 
 @app.route('/api/div', methods=['POST'])
 def divide_numbers():
@@ -17,16 +21,25 @@ def divide_numbers():
     # Perform the division
     result = num1 / num2
 
+    # Prepare data for the external POST request
+    save_data = {
+        'result': result,
+        'operation': 'division'
+    }
+
+    # Make a POST request to the db-service
+    try:
+        response = requests.post(DB_SERVICE_URL, json=save_data)
+        response.raise_for_status()  # Raise an error for bad responses
+    except requests.RequestException as e:
+        app.logger.error(f"Error saving to db-service: {e}")
+        return jsonify({'error': 'Failed to save result'}), 500
+
     # Return the result as JSON
     return jsonify({'result': result})
-@app.route('/api/div', methods=['GET'])
-def divide_numberss():
-    app.logger.info("olaaaa")
-    return "Check the logs for the message!"
 
-@app.route('/', methods=['GET'])
-def printa():
-    print("olaaaa", flush=True)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')

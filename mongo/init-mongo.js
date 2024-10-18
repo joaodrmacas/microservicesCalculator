@@ -1,0 +1,8 @@
+db = db.getSiblingDB('mydatabase'); // Switch to or create the "mydatabase"
+db.createCollection('logs'); // Create the collection
+
+db.createUser({
+    user: "db_writer",
+    pwd: "db123",
+    roles: [{ role: "readWrite", db: "mydatabase" }]
+});

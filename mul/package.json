@@ -1,13 +1,13 @@
 {
-    "name": "mul-service",
-    "version": "1.0.0",
-    "description": "Multiplication service",
-    "main": "mul.js",
-    "scripts": {
-      "start": "node mul.js"
-    },
-    "dependencies": {
-      "express": "^4.17.1"
-    }
+  "name": "mul-service",
+  "version": "1.0.0",
+  "description": "Multiplication service",
+  "main": "mul.js",
+  "scripts": {
+    "start": "node mul.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "axios": "^0.21.1"
   }
-  
+}

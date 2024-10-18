@@ -40,3 +40,26 @@ services:
       - mul-service
       - div-service
     restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_container
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: db_writer
+      MONGO_INITDB_ROOT_PASSWORD: db123
+    volumes:
+      - ./mongo/:/docker-entrypoint-initdb.d/
+
+  db-service:
+    build: ./db  # Assuming your Flask app's Dockerfile is in ./flask
+    container_name: db_writer_container
+    ports:
+      - "5006:5000"  # Exposing Flask app on port 5006
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_URI: mongodb://db_writer:db123@mongodb:27017/mydatabase  # Connect Flask to MongoDB using environment variables
