@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-service
+  labels:
+    app: db-service
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: db-service
+  template:
+    metadata:
+      labels:
+        app: db-service
+    spec:
+      containers:
+        - name: db-service
+          image: joaomacas02/dbwriter-service:latest  # Ensure this image exists
+          ports:
+            - containerPort: 5000  # Port inside the container
+          env:
+            - name: MONGO_URI
+              value: "mongodb://db_writer:db123@mongodb:27017/mydatabase"  # Connection string for MongoDB
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+spec:
+  selector:
+    app: db-service
+  ports:
+    - protocol: TCP
+      port: 5006  # External port to expose
+      targetPort: 5000  # Port inside the container
+  type: NodePort  # You can change this to LoadBalancer if needed

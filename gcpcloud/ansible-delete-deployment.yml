@@ -1,0 +1,51 @@
+---
+- hosts: master
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Delete MongoDB deployment
+      shell: sudo kubectl delete deployment mongodb
+
+    - name: Delete mongo-service service
+      shell: sudo kubectl delete service mongo-service
+
+    - name: Delete MongoDB ConfigMap
+      shell: sudo kubectl delete configmap mongo-init-script
+
+    - name: Delete sum-service deployment
+      shell: sudo kubectl delete deployment sum-service
+
+    - name: Delete sum-service service
+      shell: sudo kubectl delete service sum-service
+
+    - name: Delete sub-service deployment
+      shell: sudo kubectl delete deployment sub-service
+
+    - name: Delete sub-service service
+      shell: sudo kubectl delete service sub-service
+
+    - name: Delete mul-service deployment
+      shell: sudo kubectl delete deployment mul-service
+
+    - name: Delete mul-service service
+      shell: sudo kubectl delete service mul-service
+
+    - name: Delete div-service deployment
+      shell: sudo kubectl delete deployment div-service
+
+    - name: Delete div-service service
+      shell: sudo kubectl delete service div-service
+
+    - name: Delete calculator-app-service deployment
+      shell: sudo kubectl delete deployment calculator-app-service
+
+    - name: Delete calculator-app-service service
+      shell: sudo kubectl delete service calculator-app-service
+
+    - name: Delete db-service deployment
+      shell: sudo kubectl delete deployment db-service
+
+    - name: Delete db-service service
+      shell: sudo kubectl delete service db-service
+

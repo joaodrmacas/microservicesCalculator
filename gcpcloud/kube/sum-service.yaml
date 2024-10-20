@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sum-service
+  labels:
+    app: sum-service
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: sum-service
+  template:
+    metadata:
+      labels:
+        app: sum-service
+    spec:
+      containers:
+        - name: sum-service
+          image: joaomacas02/sum-service:latest
+          ports:
+            - containerPort: 5000  # Port inside the container
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sum-service
+spec:
+  selector:
+    app: sum-service
+  ports:
+    - protocol: TCP
+      port: 5001  # External port to expose
+      targetPort: 5000  # Port inside the container
+  type: NodePort  # You can use LoadBalancer if running on cloud providers like GCP/AWS

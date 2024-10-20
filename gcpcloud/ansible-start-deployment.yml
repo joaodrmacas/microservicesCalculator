@@ -1,0 +1,88 @@
+---
+- hosts: master
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Create a folder for MongoDB data
+      file:
+        path: /home/vagrant/data
+        state: directory
+        mode: 0777
+
+    - name: Copy mongo deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/mongo.yaml
+        dest: /home/ubuntu/mongo.yaml
+        mode: 0777
+
+    - name: Copy configmap definition from Ansible host to the master node
+      copy:
+        src: ./kube/configmap.yaml  # Make sure this file exists on your Ansible control machine
+        dest: /home/ubuntu/configmap.yaml
+        mode: 0777
+
+    - name: Start deployment of ConfigMap
+      shell: sudo kubectl apply -f /home/ubuntu/configmap.yaml
+
+    - name: Start deployment of MongoDB
+      shell: sudo kubectl apply -f /home/ubuntu/mongo.yaml
+
+
+    - name: Copy sum-service deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/sum-service.yaml
+        dest: /home/ubuntu/sum-service.yaml
+        mode: '0777'
+
+    - name: Start deployment of sum-service
+      shell: sudo kubectl apply -f /home/ubuntu/sum-service.yaml
+
+
+    - name: Copy sub-service deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/sub-service.yaml
+        dest: /home/ubuntu/sub-service.yaml
+        mode: '0777'
+
+    - name: Start deployment of sub-service
+      shell: sudo kubectl apply -f /home/ubuntu/sub-service.yaml
+
+
+    - name: Copy mul-service deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/mul-service.yaml
+        dest: /home/ubuntu/mul-service.yaml
+        mode: '0777'
+
+    - name: Start deployment of mul-service
+      shell: sudo kubectl apply -f /home/ubuntu/mul-service.yaml
+
+
+    - name: Copy div-service deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/div-service.yaml
+        dest: /home/ubuntu/div-service.yaml
+        mode: '0777'
+
+    - name: Start deployment of div-service
+      shell: sudo kubectl apply -f /home/ubuntu/div-service.yaml
+
+    - name: Copy calculator-app-service deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/calculator-app-service.yaml
+        dest: /home/ubuntu/calculator-app-service.yaml
+        mode: '0777'
+
+    - name: Start deployment of calculator-app-service
+      shell: sudo kubectl apply -f /home/ubuntu/calculator-app-service.yaml
+
+    - name: Copy db-service deployment file from Ansible host to the master node
+      copy: 
+        src: ./kube/db-service.yaml
+        dest: /home/ubuntu/db-service.yaml
+        mode: '0777'
+
+    - name: Start deployment of db-service
+      shell: sudo kubectl apply -f /home/ubuntu/db-service.yaml
+
