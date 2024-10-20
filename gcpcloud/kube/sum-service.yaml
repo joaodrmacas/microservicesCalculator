@@ -31,4 +31,3 @@ spec:
     - protocol: TCP
       port: 5001  # External port to expose
       targetPort: 5000  # Port inside the container
-  type: NodePort  # You can use LoadBalancer if running on cloud providers like GCP/AWS

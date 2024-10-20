@@ -63,21 +63,21 @@
                 number2: parseFloat(num2)
             };
 
-            let endpoint = '';
+            let endpoint = 'http://localhost:5000';
 
             // Determine the endpoint based on the operation
             switch (operation) {
                 case 'sum':
-                    endpoint = '/sum';
+                    endpoint += '/sum';
                     break;
                 case 'sub':
-                    endpoint = '/sub';
+                    endpoint += '/sub';
                     break;
                 case 'mul':
-                    endpoint = '/mul';
+                    endpoint += '/mul';
                     break;
                 case 'div':
-                    endpoint = '/div';
+                    endpoint += '/div';
                     break;
                 default:
                     alert('Invalid operation');

@@ -38,6 +38,8 @@ spec:
     app: calculator-app-service
   ports:
     - protocol: TCP
-      port: 5005  # External port to expose
-      targetPort: 5000  # Port inside the container
+      port: 5005  # PORTA EXPOSTA DO WORKER PARA ACEDER NA NETWORK DO POD
+      targetPort: 5000  # PORTA DO CONTAINER DO WORKER (ESTA PORTFORWARDED)
+      nodePort: 30100 # PORTA EXPOSTA PUBLICAMENTE
   type: NodePort  # You can change this to LoadBalancer if needed
+

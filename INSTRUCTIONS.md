@@ -1,6 +1,8 @@
 
 Depois de dar terraform apply:
 
+
+
 mudar os ips do gcphosts
 mudar o /etc/hosts do mgmt vm
 

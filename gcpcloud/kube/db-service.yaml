@@ -34,4 +34,3 @@ spec:
     - protocol: TCP
       port: 5006  # External port to expose
       targetPort: 5000  # Port inside the container
-  type: NodePort  # You can change this to LoadBalancer if needed

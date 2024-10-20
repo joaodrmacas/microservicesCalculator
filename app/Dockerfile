@@ -4,6 +4,9 @@ FROM python:3.9-slim
 # Set the working directory inside the container
 WORKDIR /app
 
+# Install curl and required packages
+RUN apt-get update && apt-get install -y curl && apt-get clean
+
 # Copy the current directory contents into the container at /app
 COPY . /app
 
