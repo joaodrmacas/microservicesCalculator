@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Install curl and required packages
-RUN apt-get update && apt-get install -y curl && apt-get clean
+RUN apt-get update && apt-get install -y curl && apt-get install -y nano && apt install netcat-traditional -y && apt install inetutils-ping -y && apt install dnsutils -y && apt-get clean
 
 # Copy the current directory contents into the container at /app
 COPY . /app

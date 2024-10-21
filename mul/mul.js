@@ -7,7 +7,7 @@ const port = 5000;
 app.use(express.json());
 
 // Define the db-service URL as a global variable
-const DB_SERVICE_URL = "http://db-service:5000/save";
+const DB_SERVICE_URL = "http://db-service:5006/save";
 
 // POST endpoint for multiplication
 app.post('/api/mul', async (req, res) => {

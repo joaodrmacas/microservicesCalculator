@@ -17,7 +17,7 @@ type Response struct {
 	Result float64 `json:"result"`
 }
 
-var DB_SERVICE_URL = "http://db-service:5000/save"
+var DB_SERVICE_URL = "http://db-service:5006/save"
 
 func main() {
 	http.HandleFunc("/api/sub", subtractHandler)

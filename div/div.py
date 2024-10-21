@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # Define the db-service URL as a global variable
-DB_SERVICE_URL = "http://db-service:5000/save"
+DB_SERVICE_URL = "http://db-service:5006/save"
 
 @app.route('/api/div', methods=['POST'])
 def divide_numbers():

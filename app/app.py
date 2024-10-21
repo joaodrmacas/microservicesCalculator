@@ -4,10 +4,10 @@ import requests
 app = Flask(__name__)
 
 # Base URLs for each microservice
-SUM_SERVICE_URL = "http://sum-service:5000"
-SUB_SERVICE_URL = "http://sub-service:5000"
-MUL_SERVICE_URL = "http://mul-service:5000"
-DIV_SERVICE_URL = "http://div-service:5000"
+SUM_SERVICE_URL = "http://sum-service:5001"
+SUB_SERVICE_URL = "http://sub-service:5002"
+MUL_SERVICE_URL = "http://mul-service:5003"
+DIV_SERVICE_URL = "http://div-service:5004"
 
 
 
