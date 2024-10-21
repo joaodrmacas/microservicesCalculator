@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -66,20 +67,20 @@ func subtractHandler(w http.ResponseWriter, r *http.Request) {
 	// Convert saveData to JSON
 	saveDataJSON, err := json.Marshal(saveData)
 	if err != nil {
-		http.Error(w, "Failed to create JSON payload", http.StatusInternalServerError)
+		fmt.Println("Failed to create JSON payload:", err)
 		return
 	}
 
 	// Make a POST request to the db-service
 	resp, err := http.Post(DB_SERVICE_URL, "application/json", bytes.NewBuffer(saveDataJSON))
 	if err != nil {
-		http.Error(w, "Failed to save to db-service", http.StatusInternalServerError)
+		fmt.Println("Error saving to db-service:", err)
 		return
 	}
 	defer resp.Body.Close()
 
 	// Optionally handle the response from the db-service (e.g., log it)
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
-		http.Error(w, "Failed to save result", http.StatusInternalServerError)
+		fmt.Println("Failed to save result, status code:", resp.StatusCode)
 	}
 }

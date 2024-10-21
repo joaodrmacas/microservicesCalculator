@@ -32,10 +32,9 @@ app.post('/api/mul', async (req, res) => {
         await axios.post(DB_SERVICE_URL, saveData);
     } catch (error) {
         console.error('Error saving to db-service:', error.message);
-        return res.status(500).json({ error: 'Failed to save result' });
     }
 
-    // Return the result
+    // Return the result even if saving to db-service fails
     res.json({ result });
 });
 

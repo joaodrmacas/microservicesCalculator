@@ -33,13 +33,9 @@ def divide_numbers():
         response.raise_for_status()  # Raise an error for bad responses
     except requests.RequestException as e:
         app.logger.error(f"Error saving to db-service: {e}")
-        return jsonify({'error': 'Failed to save result'}), 500
 
-    # Return the result as JSON
+    # Return the result as JSON even if saving fails
     return jsonify({'result': result})
 
-
-
-
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(port=5000, host='0.0.0.0')

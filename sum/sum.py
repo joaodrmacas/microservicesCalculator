@@ -24,13 +24,14 @@ def sum_numbers():
     }
     
     # Make a POST request to the db-service
-    response = requests.post(DB_SERVICE_URL, json=save_data)
+    try:
+        response = requests.post(DB_SERVICE_URL, json=save_data)
+        response.raise_for_status()  # Raise an error for bad responses
+    except requests.RequestException as e:
+        app.logger.error(f"Error saving to db-service: {e}")
 
-    # Check the response from the db-service (optional)
-    #if response.status_code == 200 or response.status_code == 201:
-    return jsonify({'result': result, 'message': 'Saved successfully!'})
-    #else:
-    #    return jsonify({'result': result, 'message': 'Failed to save.'}), 500
+    # Return the result even if saving to db-service fails
+    return jsonify({'result': result})
 
 if __name__ == '__main__':
     app.run(port=5000, host='0.0.0.0', debug=True)
