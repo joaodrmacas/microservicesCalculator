@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: div-pod
+  labels:
+    app: div-pod
+spec:
+  containers:
+    - name: div-pod
+      image: joaomacas02/div-service:latest  # Ensure this image exists
+      ports:
+        - containerPort: 5000  # Port inside the container

@@ -10,9 +10,9 @@ resource "google_compute_firewall" "frontend_rules" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "443", "5000-5010", "30000-32767"]  # Include NodePort range
+    ports    = ["1-32767"]  # Include NodePort range
   }
 
   source_ranges = ["0.0.0.0/0"]  # Allows access from any IP
-  target_tags   = ["worker"]
+  target_tags   = ["worker","master"]
 }

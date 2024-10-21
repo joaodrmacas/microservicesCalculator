@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sum-pod
+spec:
+  containers:
+  - name: sum-pod
+    image: joaomacas02/sum-service:latest
+    ports:
+    - containerPort: 5000

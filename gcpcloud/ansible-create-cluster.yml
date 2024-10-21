@@ -5,7 +5,7 @@
   become_method: sudo
   tasks:
     - name: initialize the cluster
-      shell: sudo kubeadm reset --force && sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU
+      shell: sudo kubeadm reset --force && sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU
       args:
         chdir: $HOME
         creates: cluster_initialized.txt

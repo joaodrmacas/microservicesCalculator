@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: calculator-app-pod
+  labels:
+    app: calculator-app-pod
+spec:
+  containers:
+    - name: calculator-app-pod
+      image: joaomacas02/calculator-app-service:latest  # Ensure this image exists
+      ports:
+        - containerPort: 5000  # Port inside the container
+      env:
+        - name: SUM_SERVICE_URL
+          value: "http://sum-service:5000"  # Environment variable to access sum-service
+        - name: SUB_SERVICE_URL
+          value: "http://sub-service:5000"  # Environment variable to access sub-service
+        - name: MUL_SERVICE_URL
+          value: "http://mul-service:5000"  # Environment variable to access mul-service
+        - name: DIV_SERVICE_URL
+          value: "http://div-service:5000"  # Environment variable to access div-service
