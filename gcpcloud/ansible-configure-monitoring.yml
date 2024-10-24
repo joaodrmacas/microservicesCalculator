@@ -1,0 +1,27 @@
+---
+- hosts: "master"
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+    - name: Install helm
+      shell: |
+         sudo snap install helm --classic
+
+    - name: Add Prometheus Helm repository and update repositories
+      shell: |
+        sudo helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+        sudo helm repo update
+
+    - name: Add Grafana Helm repository and update repositories
+      shell: |
+        sudo helm repo add grafana https://grafana.github.io/helm-charts 
+        sudo helm repo update
+
+    - name: Initialize the monitoring services
+      shell: |
+        sudo helm upgrade --install --namespace monitoring --create-namespace --atomic --debug --timeout 300s prometheus-stack prometheus-community/kube-prometheus-stack --node-port=30101

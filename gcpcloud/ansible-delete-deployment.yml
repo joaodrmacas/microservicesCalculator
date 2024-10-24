@@ -49,3 +49,6 @@
     - name: Delete db-service service
       shell: sudo kubectl delete service db-service
 
+    - name: Delete monitoring namespace
+      shell: sudo kubectl delete namespace monitoring
+

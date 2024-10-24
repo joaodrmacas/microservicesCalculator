@@ -59,23 +59,20 @@ This document contains essential commands for managing your deployment using Ter
    ```bash
    ansible-playbook -i gcphosts ansible-workers-join.yml
    ```
+5. **Start Monitoring Services**
+   Run the playbook to start grafana and prometheus on the cluster.
+   ```bash
+   ansible-playbook -i gcphosts ansible-configure-monitoring.yml
+   ```
 
 5. **Start Deployment**  
-   To start the deployment, run one of the following playbooks:
+   To start the deployment, run the following playbooks:
    ```bash
    ansible-playbook -i gcphosts ansible-start-deployment.yml
    ```
-   or
-   ```bash
-   ansible-playbook -i gcphosts ansible-start-pods.yml
-   ```
 
 6. **Delete Deployment**  
-   To delete the deployment, run one of the following playbooks:
+   To delete the deployment, run the following playbooks:
    ```bash
    ansible-playbook -i gcphosts ansible-delete-deployment.yml
-   ```
-   or
-   ```bash
-   ansible-playbook -i gcphosts ansible-delete-pods.yml
    ```
