@@ -19,6 +19,11 @@ spec:
           image: joaomacas02/div-service:latest  # Ensure this image exists
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m" 
 ---
 apiVersion: v1
 kind: Service
@@ -31,3 +36,23 @@ spec:
     - protocol: TCP
       port: 5004
       targetPort: 5000
+  
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: div-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: div-service
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

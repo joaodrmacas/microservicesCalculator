@@ -58,8 +58,14 @@
     - name: Delete monitoring namespace
       shell: sudo kubectl delete namespace monitoring
 
-    - name: Delete calculator HPA
-      shell: sudo kubectl delete hpa calculator-hpa
+    - name: Delete HPAs
+      shell: |
+            sudo kubectl delete hpa calculator-hpa
+            sudo kubectl delete hpa db-hpa
+            sudo kubectl delete hpa div-hpa
+            sudo kubectl delete hpa mul-hpa
+            sudo kubectl delete hpa sum-hpa
+            sudo kubectl delete hpa sub-hpa
 
     - name: Delete deployment of metrics server
       shell: sudo kubectl delete deployment metrics-server -n kube-system

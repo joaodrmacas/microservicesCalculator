@@ -5,7 +5,7 @@ metadata:
   labels:
     app: db-service
 spec:
-  replicas: 1  # Number of pod replicas
+  replicas: 1 
   selector:
     matchLabels:
       app: db-service
@@ -16,12 +16,17 @@ spec:
     spec:
       containers:
         - name: db-service
-          image: joaomacas02/dbwriter-service:latest  # Ensure this image exists
+          image: joaomacas02/dbwriter-service:latest
           ports:
-            - containerPort: 5000  # Port inside the container
+            - containerPort: 5000
           env:
             - name: MONGO_URI
               value: "mongodb://db_writer:db123@mongodb:27017/mydatabase"  # Connection string for MongoDB
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m" 
 ---
 apiVersion: v1
 kind: Service
@@ -34,3 +39,23 @@ spec:
     - protocol: TCP
       port: 5006  # External port to expose
       targetPort: 5000  # Port inside the container
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: db-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: db-service
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
