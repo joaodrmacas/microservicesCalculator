@@ -2,16 +2,15 @@
 Web Calculator
 
 ## Description
-A calculator app divided in 3 microservices for each operation. 
-Project for Administration and Management of IT Infrastructures and Services implementing
-Vagrant, Terraform, Ansible and Kubernetes.
+A calculator app that does math operations between two given numbers. This is for a college project about Administration and Management of IT Infrastructures and Services. We implemented this app using Vagrant, Terraform, Ansible, Docker, Kubernetes to manage
+and deploy 4 microservices (one for each operation), database and monitoring tools Prometheus and Grafana. It automaticly deploys and scales throught Kubernetes HPA.
 
 # Installation
 
 # Vagrant Commands
 
 1. **Initialize Variables**  
-Linux:
+   Linux:
    ```bash
    export VAGRANT_VAGRANTFILE="Vagrantfile.vbox"
    ```
@@ -19,7 +18,7 @@ Linux:
    ```bash
    export VAGRANT_VAGRANTFILE="Vagrantfile.docker"
    ```
-Windows:
+   Windows:
    ```bash
    $env:VAGRANT_VAGRANTFILE = "Vagrantfile.vbox"
    ```
@@ -57,7 +56,7 @@ Windows:
    ```
 
 1. **Create Key and change path** 
-   Create a key and update the path to the json file.
+   In terraform-gcp-provider create a key and update the path to the json file.
    ```bash
    provider "google" {
       credentials = file("<PATH_TO_GCP_CREDENTIALS_FILE>")
@@ -145,6 +144,6 @@ Windows:
 
 # Authors
 
-João Maçãs
-Rodrigo Ganância
+João Maçãs,
+Rodrigo Ganância,
 Tiago Caixinha
