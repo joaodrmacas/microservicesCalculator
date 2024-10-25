@@ -48,6 +48,12 @@
     - name: Start deployment of monitoring-service
       shell: sudo kubectl apply -f /home/ubuntu/kube/monitoring-service.yaml
 
+    - name: Start deployment of metrics-server
+      shell: sudo kubectl apply -f /home/ubuntu/kube/metrics-server.yaml
+
+    - name: Start deployment of calculator HPA
+      shell: sudo kubectl apply -f /home/ubuntu/kube/calculator-hpa.yaml
+
     - name: Retrieve master node IP address
       set_fact:
         master_ip: "{{ hostvars['master'].ansible_host }}"  # Use 'master' to get the IP

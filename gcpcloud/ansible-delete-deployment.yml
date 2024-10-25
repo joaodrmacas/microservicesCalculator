@@ -56,6 +56,13 @@
       shell: sudo kubectl delete service -n monitoring grafana-ext-service
 
     - name: Delete monitoring namespace
-      shell: kubectl delete namespace monitoring
+      shell: sudo kubectl delete namespace monitoring
+
+    - name: Delete calculator HPA
+      shell: sudo kubectl delete hpa calculator-hpa
+
+    - name: Delete deployment of metrics server
+      shell: sudo kubectl delete deployment metrics-server -n kube-system
+
 
 

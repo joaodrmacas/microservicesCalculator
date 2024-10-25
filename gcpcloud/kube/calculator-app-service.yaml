@@ -5,7 +5,7 @@ metadata:
   labels:
     app: calculator-app-service
 spec:
-  replicas: 1  # Number of pod replicas
+  replicas: 1
   selector:
     matchLabels:
       app: calculator-app-service
@@ -16,9 +16,14 @@ spec:
     spec:
       containers:
         - name: calculator-app-service
-          image: joaomacas02/calculator-app-service:latest  # Ensure this image exists
+          image: joaomacas02/calculator-app-service:latest
           ports:
-            - containerPort: 5000  # Port inside the container
+            - containerPort: 5000 
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m" 
           env:
             - name: SUM_SERVICE_URL
               value: "http://sum-service:5000"  # Environment variable to access sum-service
@@ -38,8 +43,7 @@ spec:
     app: calculator-app-service
   ports:
     - protocol: TCP
-      port: 5005  # PORTA EXPOSTA DO WORKER PARA ACEDER NA NETWORK DO POD
-      targetPort: 5000  # PORTA DO CONTAINER DO WORKER (ESTA PORTFORWARDED)
-      nodePort: 30100 # PORTA EXPOSTA PUBLICAMENTE
-  type: NodePort  # You can change this to LoadBalancer if needed
-
+      port: 5005  
+      targetPort: 5000  
+      nodePort: 30100 
+  type: NodePort
