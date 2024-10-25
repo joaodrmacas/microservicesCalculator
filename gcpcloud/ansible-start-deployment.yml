@@ -57,8 +57,12 @@
 
     - name: Print Server IP and Port for services
       debug:
-        msg: "Access your services at: http://{{ master_ip }}:30100"
+        msg: "Access Calculator Website: at: http://{{ master_ip }}:30100"
 
     - name: Print Grafana URL
       debug:
         msg: "Access Grafana at: http://{{ master_ip }}:30101"
+
+    - name: Print Grafana User and Password
+      debug:
+        msg: "user: admin password: prom-operator"
