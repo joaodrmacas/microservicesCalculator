@@ -53,7 +53,7 @@
       shell: sudo helm uninstall prometheus-stack -n monitoring
 
     - name: Delete grafana external service
-      shell: sudo kubectl delete service -n monitoring grafana-ext
+      shell: sudo kubectl delete service -n monitoring grafana-ext-service
 
     - name: Delete monitoring namespace
       shell: kubectl delete namespace monitoring

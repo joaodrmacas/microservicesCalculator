@@ -8,91 +8,54 @@
       file:
         path: /home/vagrant/data
         state: directory
-        mode: 0777
+        mode: '0777'
 
-    - name: Copy mongo deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/mongo.yaml
-        dest: /home/ubuntu/mongo.yaml
-        mode: 0777
-
-    - name: Copy configmap definition from Ansible host to the master node
+    - name: Copy the entire kube directory to the master node
       copy:
-        src: ./kube/configmap.yaml  # Make sure this file exists on your Ansible control machine
-        dest: /home/ubuntu/configmap.yaml
-        mode: 0777
+        src: ./kube/
+        dest: /home/ubuntu/kube/
+        mode: '0777'
+        remote_src: no
 
     - name: Start deployment of ConfigMap
-      shell: sudo kubectl apply -f /home/ubuntu/configmap.yaml
+      shell: sudo kubectl apply -f /home/ubuntu/kube/configmap.yaml
 
     - name: Start deployment of MongoDB
-      shell: sudo kubectl apply -f /home/ubuntu/mongo.yaml
-
-
-    - name: Copy sum-service deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/sum-service.yaml
-        dest: /home/ubuntu/sum-service.yaml
-        mode: '0777'
+      shell: sudo kubectl apply -f /home/ubuntu/kube/mongo.yaml
 
     - name: Start deployment of sum-service
-      shell: sudo kubectl apply -f /home/ubuntu/sum-service.yaml
-
-
-    - name: Copy sub-service deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/sub-service.yaml
-        dest: /home/ubuntu/sub-service.yaml
-        mode: '0777'
+      shell: sudo kubectl apply -f /home/ubuntu/kube/sum-service.yaml
 
     - name: Start deployment of sub-service
-      shell: sudo kubectl apply -f /home/ubuntu/sub-service.yaml
-
-
-    - name: Copy mul-service deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/mul-service.yaml
-        dest: /home/ubuntu/mul-service.yaml
-        mode: '0777'
+      shell: sudo kubectl apply -f /home/ubuntu/kube/sub-service.yaml
 
     - name: Start deployment of mul-service
-      shell: sudo kubectl apply -f /home/ubuntu/mul-service.yaml
-
-
-    - name: Copy div-service deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/div-service.yaml
-        dest: /home/ubuntu/div-service.yaml
-        mode: '0777'
+      shell: sudo kubectl apply -f /home/ubuntu/kube/mul-service.yaml
 
     - name: Start deployment of div-service
-      shell: sudo kubectl apply -f /home/ubuntu/div-service.yaml
-
-    - name: Copy calculator-app-service deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/calculator-app-service.yaml
-        dest: /home/ubuntu/calculator-app-service.yaml
-        mode: '0777'
+      shell: sudo kubectl apply -f /home/ubuntu/kube/div-service.yaml
 
     - name: Start deployment of calculator-app-service
-      shell: sudo kubectl apply -f /home/ubuntu/calculator-app-service.yaml
-
-    - name: Copy db-service deployment file from Ansible host to the master node
-      copy: 
-        src: ./kube/db-service.yaml
-        dest: /home/ubuntu/db-service.yaml
-        mode: '0777'
+      shell: sudo kubectl apply -f /home/ubuntu/kube/calculator-app-service.yaml
 
     - name: Start deployment of db-service
-      shell: sudo kubectl apply -f /home/ubuntu/db-service.yaml
-
+      shell: sudo kubectl apply -f /home/ubuntu/kube/db-service.yaml
 
     - name: Initialize the monitoring services
       shell: |
         sudo helm upgrade --install --namespace monitoring --create-namespace --atomic --debug --timeout 300s prometheus-stack prometheus-community/kube-prometheus-stack
 
+    - name: Start deployment of monitoring-service
+      shell: sudo kubectl apply -f /home/ubuntu/kube/monitoring-service.yaml
 
-    - name: Start grafana external service
-      shell: |
-        sudo kubectl expose service prometheus-stack-grafana -n monitoring --type=NodePort --target-port=3000 --name=grafana-ext --port=80
+    - name: Retrieve master node IP address
+      set_fact:
+        master_ip: "{{ hostvars['master'].ansible_host }}"  # Use 'master' to get the IP
 
+    - name: Print Server IP and Port for services
+      debug:
+        msg: "Access your services at: http://{{ master_ip }}:30100"
+
+    - name: Print Grafana URL
+      debug:
+        msg: "Access Grafana at: http://{{ master_ip }}:30101"
