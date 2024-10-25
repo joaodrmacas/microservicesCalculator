@@ -48,6 +48,12 @@ This document contains essential commands for managing your deployment using Ter
    ansible-playbook -i gcphosts ansible-k8s-install.yml
    ```
 
+5. **Install Monitoring Services (Prometheus, Grafana)**
+   Run the playbook to start grafana and prometheus on the cluster.
+   ```bash
+   ansible-playbook -i gcphosts ansible-monitoring-install.yml
+   ```
+
 3. **Create Kubernetes Cluster**  
    Run the playbook to create a Kubernetes cluster.
    ```bash
@@ -58,11 +64,6 @@ This document contains essential commands for managing your deployment using Ter
    Run the playbook to join worker nodes to the cluster.
    ```bash
    ansible-playbook -i gcphosts ansible-workers-join.yml
-   ```
-5. **Start Monitoring Services**
-   Run the playbook to start grafana and prometheus on the cluster.
-   ```bash
-   ansible-playbook -i gcphosts ansible-configure-monitoring.yml
    ```
 
 5. **Start Deployment**  

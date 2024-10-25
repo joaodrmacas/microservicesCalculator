@@ -8,7 +8,7 @@
       shell: sudo kubectl delete deployment mongodb
 
     - name: Delete mongo-service service
-      shell: sudo kubectl delete service mongo-service
+      shell: sudo kubectl delete service mongodb
 
     - name: Delete MongoDB ConfigMap
       shell: sudo kubectl delete configmap mongo-init-script
@@ -48,7 +48,14 @@
 
     - name: Delete db-service service
       shell: sudo kubectl delete service db-service
+    
+    - name: Delete grafana and prometheus
+      shell: sudo helm uninstall prometheus-stack -n monitoring
+
+    - name: Delete grafana external service
+      shell: sudo kubectl delete service -n monitoring grafana-ext
 
     - name: Delete monitoring namespace
-      shell: sudo kubectl delete namespace monitoring
+      shell: kubectl delete namespace monitoring
+
 
